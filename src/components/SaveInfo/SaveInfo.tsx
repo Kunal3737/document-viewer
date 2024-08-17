@@ -1,7 +1,11 @@
 import React, { memo } from "react";
 import "./SaveInfo.css";
 
-const SaveInfo = ({ timeSinceLastSave }) => (
+interface SaveInfoProps {
+  timeSinceLastSave: string;
+}
+
+const SaveInfo: React.FC<SaveInfoProps> = ({ timeSinceLastSave }) => (
   <div className="save-info">Last save: {timeSinceLastSave}</div>
 );
 

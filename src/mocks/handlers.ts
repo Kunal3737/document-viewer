@@ -5,9 +5,16 @@ import {
   saveDocumentsToLocalStorage,
 } from "../utils";
 
-const getDocumentsFromLocalStorage = () => {
+interface Document {
+  type: string;
+  title: string;
+  position: number;
+  thumbnail: string;
+}
+
+const getDocumentsFromLocalStorage = (): Document[] => {
   const savedDocuments = localStorage.getItem(LOCAL_STORAGE_KEY);
-  return savedDocuments || savedDocuments.length > 0
+  return savedDocuments && savedDocuments.length > 0
     ? JSON.parse(savedDocuments)
     : INITIAL_DATA;
 };
@@ -19,7 +26,8 @@ export const handlers = [
   }),
 
   http.post("/api/documents", async ({ request }) => {
-    const { documents } = await request.json();
+    // const { documents }: { documents: Document[] } = await request.json();
+    const { documents } = (await request.json()) as { documents: Document[] };
     saveDocumentsToLocalStorage(documents);
     return HttpResponse.json({
       message: "Data Changed",

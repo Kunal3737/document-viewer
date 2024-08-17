@@ -1,4 +1,11 @@
-export const INITIAL_DATA = Object.freeze([
+export interface Document {
+  type: string;
+  title: string;
+  position: number;
+  thumbnail: string;
+}
+
+export const INITIAL_DATA: ReadonlyArray<Document> = Object.freeze([
   {
     type: "bankdraft",
     title: "Bank Draft",
@@ -33,7 +40,7 @@ export const INITIAL_DATA = Object.freeze([
 
 export const LOCAL_STORAGE_KEY = "documents";
 
-export const saveDocumentsToLocalStorage = (documents) => {
+export const saveDocumentsToLocalStorage = (documents: Document[]): void => {
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(documents));
   } catch (error) {

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
-async function enableMocking() {
+async function enableMocking(): Promise<void> {
   try {
     const { worker } = await import("./mocks/browser");
     await worker.start();
@@ -13,5 +13,7 @@ async function enableMocking() {
 }
 
 enableMocking().then(() => {
-  ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <App />
+  );
 });
